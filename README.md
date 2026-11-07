@@ -1,16 +1,13 @@
-## Hi there 👋
+# ZENVYQ
 
-<!--
-**zenvyq/ZENVYQ** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Website and internal portal for ZENVYQ, a software agency.
 
-Here are some ideas to get you started:
+- **Public site** — minimal, CMS-driven agency landing page and portfolio with a small 3D guide mascot.
+- **Employee portal** — invite-only accounts, role-based access (super admin, admin, HR, project manager, employee, intern), document submission and review, projects and tasks, announcements, leads, and a site content editor.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+**Stack:** Next.js · TypeScript · Tailwind CSS · Supabase · three.js
+
+**Status:** Planning — see [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## Documentation
+Start at [docs/README.md](docs/README.md).
