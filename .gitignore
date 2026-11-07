@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+
+# build / test output
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+next-env.d.ts
+
+# env
+.env
+.env*.local
+.env.test
+
+# supabase local
+supabase/.branches/
+supabase/.temp/
+
+# local tooling
+CLAUDE.md
+.claude/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log
