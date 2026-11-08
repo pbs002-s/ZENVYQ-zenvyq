@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD)
 
 **Product:** ZENVYQ website + employee portal
-**Status:** Draft v1 · 2026-11-08
+**Status:** Draft v2 · 2026-11-08
 **Owner:** ZENVYQ founders
 
 ## 1. Problem
@@ -13,8 +13,8 @@ ZENVYQ is a new software agency that builds and sells custom software. It needs:
 ## 2. Goals
 | # | Goal | Measure |
 |---|---|---|
-| G1 | Convert visitors into project inquiries | Inquiry form submissions per month |
-| G2 | Present the agency as professional and detail-oriented | Lighthouse ≥ 90 on all categories; bounce rate |
+| G1 | Convert visitors into project inquiries | Inquiry submissions per month (leads table) and visit → inquiry rate (Cloudflare Web Analytics) |
+| G2 | Present the agency as professional and detail-oriented | Lighthouse ≥ 90 on all categories; bounce rate (Cloudflare Web Analytics) |
 | G3 | Centralise staff documents and approvals | % of staff with complete approved documents |
 | G4 | Track project delivery in one place | All active projects and tasks live in the portal |
 | G5 | Zero hosting cost at launch | Monthly bill = $0 |
@@ -30,7 +30,7 @@ ZENVYQ is a new software agency that builds and sells custom software. It needs:
 |---|---|---|
 | Visitor / prospective client | Founders, SMB owners, product managers | Understand services, see work, contact quickly |
 | Super admin | Company owner | Full control, cannot be locked out |
-| Admin | Operations lead | Manage users, CMS, leads, everything except super admin |
+| Admin | Operations lead | Manage users (HR and below), CMS, leads; cannot manage admins or super admins |
 | HR | People team | Onboard staff, review documents, post notices |
 | Project manager | Runs client projects | Create projects, assign tasks, track progress |
 | Employee | Developer / designer | See tasks, update status, submit documents |
@@ -81,9 +81,9 @@ Every section's content, order, and visibility come from the CMS.
 
 ### 6.1 Authentication
 - Login with email + password at `/login`.
-- Account created by super_admin / admin / hr → invite email → user sets password.
-- Forgot password via email link.
-- Disabled users cannot log in.
+- Account created by super_admin / admin / hr → invite email → user sets password (min 10 chars, strength check). Invites can be resent until accepted.
+- Forgot password via email link (never reveals whether an email exists).
+- Disabled users cannot log in, and lose access on their next request if already logged in.
 
 ### 6.2 Role dashboards
 | Role | Dashboard widgets |
@@ -97,11 +97,12 @@ Every section's content, order, and visibility come from the CMS.
 - Create, edit, disable users; assign role, department, designation.
 - Profile: photo, name, designation, department, phone, joined date, skills, bio, `show_on_site`.
 - Directory searchable by name, department, skill.
+- Offboarding: disable the account, export the person's documents, then delete them (audited).
 
 ### 6.4 Documents & files
 - Categories: ID proof, Contract, Certificate, NDA, Report, Other.
 - Upload PDF / JPG / PNG / DOCX up to 10 MB.
-- Status: pending → approved / rejected (rejection needs a reason). Rejected documents can be re-uploaded.
+- Status: pending → approved / rejected (rejection needs a reason). Rejected documents can have their file replaced, which sends them back to pending. Reviewers cannot approve their own documents.
 - Optional expiry date; reminder 14 days before expiry.
 - Employees see only their own documents; HR/admin see all.
 - HR/admin can request a specific document from a user (creates a pending request with a due date).
@@ -109,7 +110,9 @@ Every section's content, order, and visibility come from the CMS.
 ### 6.5 Projects & tasks
 - Project: name, client name, description, start/end dates, status (planning, active, on_hold, completed, cancelled), members.
 - Task: title, description, status (todo, in_progress, review, done), priority (low, medium, high, urgent), assignee, due date, attachments, comments.
-- Kanban board with drag and drop; list view with filters.
+- Kanban board with drag and drop (keyboard accessible); list view with filters.
+- Assignees move their own tasks through all columns including Done; Review is a team convention, not a gate. PMs can reopen and edit any task.
+- Employees can create tasks and assign them only to themselves; PMs/admins assign anyone in the project.
 - Progress % = done tasks / total tasks.
 - Comments support @mentions (creates a notification).
 
@@ -125,7 +128,7 @@ Every section's content, order, and visibility come from the CMS.
 
 ### 6.8 Site CMS
 - Editors for: site settings (brand, contact, socials, SEO, mascot lines, section order/visibility), hero, services, case studies (with image gallery), clients, testimonials, stats, process steps, FAQs, engagement models, legal pages.
-- Draft vs published per item; "Publish" refreshes the public site within seconds.
+- Draft vs published per item and for site settings; "Preview" shows drafts on the real page (admins only); "Publish" refreshes the public site within seconds.
 - Image upload to public media bucket.
 
 ### 6.9 Supporting features
